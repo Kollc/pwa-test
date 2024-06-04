@@ -1,25 +1,68 @@
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Link,
+} from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+const Page = ({ title }) => (
+  <div className="App">
+    <div className="App-header">
+      <img src={logo} className="App-logo" alt="logo" />
+      <h2>{title}</h2>
     </div>
-  );
+    <p className="App-intro">
+      This is the {title} page.
+    </p>
+    <p>
+      <Link to="/">Home</Link>
+    </p>
+    <p>
+      <Link to="/about">About</Link>
+    </p>
+    <p>
+      <Link to="/settings">Settings</Link>
+    </p>
+  </div>
+);
+
+const Home = (props) => (
+  <Page title="Home"/>
+);
+
+const About = (props) => (
+  <Page title="About"/>
+);
+
+const Settings = (props) => (
+  <Page title="Settings"/>
+);
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <Home/>
+    ),
+  },
+  {
+    path: "about",
+    element: <About/>,
+  },
+  {
+    path: "settings",
+    element: <Settings/>,
+  },
+]);
+
+class App extends Component {
+  render() {
+    return (
+      <RouterProvider router={router} />
+    );
+  }
 }
 
 export default App;
